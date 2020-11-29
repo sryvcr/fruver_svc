@@ -47,3 +47,22 @@ class ProvidersListViewSet(ReadOnlyViewSet):
         if document_id:
             queryset = queryset.filter(document_id__icontains=document_id)
         return queryset
+
+
+class ProviderByPkViewSet(ReadOnlyViewSet):
+
+    queryset = Providers.objects.all()
+    serializer_class = ProvidersSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        document_id = self.kwargs['pk']
+        try:
+            queryset = Providers.objects.get(pk=document_id)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        serializer = ProvidersSerializer(queryset)
+        response = {
+            'status': status.HTTP_200_OK,
+            'data': serializer.data
+        }
+        return Response(response)
