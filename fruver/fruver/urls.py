@@ -20,4 +20,5 @@ from django.conf.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('providers/', include('apps.providers.urls')),
+    path('products/', include('apps.products.urls')),
 ]
