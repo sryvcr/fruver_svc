@@ -1,4 +1,4 @@
-# API REST con Django-Rest-Framework para relacionar árboles al parque que pertenecen
+# API REST con Django-Rest-Framework para fruver
 
 
 #### Crear proyecto
@@ -54,5 +54,5 @@ $ (fruver_svc) python manage.py migrate
 
 #### Iniciar
 ```sh
-$ (rest-devcode) python manage.py runserver
+$ (fruver_svc) python manage.py runserver
 ```
