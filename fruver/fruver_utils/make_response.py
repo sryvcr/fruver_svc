@@ -1,6 +1,6 @@
-def make_response(status: int, data: dict):
+def make_response(status: int, data: dict | list) -> dict:
     response = {
         'status': status,
-        'data': data
+        'data': data,
     }
     return response

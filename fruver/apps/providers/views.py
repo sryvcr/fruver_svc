@@ -6,28 +6,10 @@ from rest_framework import (
     viewsets,
     status,
 )
+from fruver_utils.readonly_viewset import ReadOnlyViewSet
+from fruver_utils.make_response import make_response
 from .models import Providers
 from .serializers import ProvidersSerializer
-
-
-class ReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
-
-    def list(self, request, *kwargs):
-        serializer = self.serializer_class(self.get_queryset(), many=True)
-        response = {
-            'status': status.HTTP_200_OK,
-            'data': serializer.data
-        }
-        return Response(response)
-
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        response = {
-            'status': status.HTTP_200_OK,
-            'data': serializer.data
-        }
-        return Response(response)
 
 
 class ProvidersListViewSet(ReadOnlyViewSet):
@@ -56,13 +38,11 @@ class ProviderByPkViewSet(ReadOnlyViewSet):
         try:
             queryset = Providers.objects.get(pk=document_id)
         except:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            response = make_response(status.HTTP_404_NOT_FOUND, {})
+            return Response(status=status.HTTP_404_NOT_FOUND, data=response)
         serializer = ProvidersSerializer(queryset)
-        response = {
-            'status': status.HTTP_200_OK,
-            'data': serializer.data
-        }
-        return Response(response)
+        response = make_response(status.HTTP_200_OK, serializer.data)
+        return Response(status=status.HTTP_200_OK, data=response)
 
 
 class ProviderCreateOneView(APIView):
@@ -76,15 +56,9 @@ class ProviderCreateOneView(APIView):
             )
             provider.save()
             serializer = ProvidersSerializer(provider)
-            response = {
-                'status': status.HTTP_201_CREATED,
-                'data': serializer.data
-            }
-            return Response(response)
+            response = make_response(status.HTTP_201_CREATED, serializer.data)
+            return Response(status=status.HTTP_201_CREATED, data=response)
         except Exception as e:
             print('error:', e)
-            response = {
-                'status': status.HTTP_400_BAD_REQUEST,
-                'error': str(e)
-            }
-            return Response(response)
+            response = make_response(status.HTTP_400_BAD_REQUEST, str(e))
+            return Response(status=status.HTTP_400_BAD_REQUEST, data=response)

@@ -38,10 +38,11 @@ class ProductByPkViewSet(ReadOnlyViewSet):
         try:
             queryset = Products.objects.get(pk=_id)
         except:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            response = make_response(status.HTTP_404_NOT_FOUND, {})
+            return Response(status=status.HTTP_404_NOT_FOUND, data=response)
         serializer = ProductsSerializer(queryset)
         response = make_response(status.HTTP_200_OK, serializer.data)
-        return Response(response)
+        return Response(status=status.HTTP_200_OK, data=response)
 
 
 class ProductCreateOneView(APIView):
@@ -57,8 +58,8 @@ class ProductCreateOneView(APIView):
             product.save()
             serializer = ProductsSerializer(product)
             response = make_response(status.HTTP_201_CREATED, serializer.data)
-            return Response(response)
+            return Response(status=status.HTTP_201_CREATED, data=response)
         except Exception as e:
             print('error:', e)
             response = make_response(status.HTTP_400_BAD_REQUEST, str(e))
-            return Response(response)
+            return Response(status=status.HTTP_400_BAD_REQUEST, data=response)
