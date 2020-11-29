@@ -4,14 +4,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import (
     viewsets,
-    status
+    status,
 )
-from .models import (
-    Providers,
-)
-from .serializers import (
-    ProvidersSerializer
-)
+from .models import Providers
+from .serializers import ProvidersSerializer
 
 
 class ReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
