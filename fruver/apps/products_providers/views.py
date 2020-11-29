@@ -1,3 +1,4 @@
+import json
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -66,3 +67,28 @@ class ProviderByPkViewSet(ReadOnlyViewSet):
             'data': serializer.data
         }
         return Response(response)
+
+
+class ProviderCreateOneView(APIView):
+
+    def post(self, request):
+        try:
+            body = json.loads(request.body)
+            provider = Providers(
+                document_id=body['document_id'],
+                name=body['name'],
+            )
+            provider.save()
+            serializer = ProvidersSerializer(provider)
+            response = {
+                'status': status.HTTP_201_CREATED,
+                'data': serializer.data
+            }
+            return Response(response)
+        except Exception as e:
+            print('error:', e)
+            response = {
+                'status': status.HTTP_400_BAD_REQUEST,
+                'error': str(e)
+            }
+            return Response(response)
