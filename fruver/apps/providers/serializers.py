@@ -1,7 +1,5 @@
 from rest_framework import serializers
-from .models import (
-    Providers,
-)
+from .models import Providers
 
 
 class ProvidersSerializer(serializers.ModelSerializer):
