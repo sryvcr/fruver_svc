@@ -1,4 +1,5 @@
-from django.shortcuts import render
+import json
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import (
     viewsets,
@@ -7,6 +8,7 @@ from rest_framework import (
 from fruver_utils.readonly_viewset import ReadOnlyViewSet
 from fruver_utils.make_response import make_response
 from .models import Products
+from ..providers.models import Providers
 from .serializers import ProductsSerializer
 
 
@@ -40,3 +42,23 @@ class ProductByPkViewSet(ReadOnlyViewSet):
         serializer = ProductsSerializer(queryset)
         response = make_response(status.HTTP_200_OK, serializer.data)
         return Response(response)
+
+
+class ProductCreateOneView(APIView):
+
+    def post(self, request):
+        try:
+            body = json.loads(request.body)
+            product = Products(
+                name=body['name'],
+                price=body['price'],
+                providers=Providers(document_id=body['providers_id']),
+            )
+            product.save()
+            serializer = ProductsSerializer(product)
+            response = make_response(status.HTTP_201_CREATED, serializer.data)
+            return Response(response)
+        except Exception as e:
+            print('error:', e)
+            response = make_response(status.HTTP_400_BAD_REQUEST, str(e))
+            return Response(response)
