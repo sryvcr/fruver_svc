@@ -6,6 +6,7 @@ from .views import (
     ProviderByPkViewSet,
     ProviderCreateOneView,
     ProviderUpdateOneView,
+    ProviderDeleteOneView,
 )
 
 router = SimpleRouter()
@@ -16,4 +17,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('create-one', view=ProviderCreateOneView.as_view(), name='provider_create_one'),
     path('update-one/<str:document_id>', view=ProviderUpdateOneView.as_view(), name='provider_update_one'),
+    path('delete-one/<str:document_id>', view=ProviderDeleteOneView.as_view(), name='provider_delete_one'),
 ]
