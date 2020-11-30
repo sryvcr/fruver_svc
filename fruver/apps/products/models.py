@@ -10,3 +10,4 @@ class Products(models.Model):
 
     class Meta:
         db_table = 'products'
+        ordering = ['name']

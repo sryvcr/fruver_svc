@@ -7,3 +7,4 @@ class Providers(models.Model):
 
     class Meta:
         db_table = 'providers'
+        ordering = ['name']
