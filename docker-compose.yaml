@@ -1,0 +1,17 @@
+version: '3.3'
+
+services: 
+  app:
+    container_name: fruver_svc
+    image: fruver/http-api
+    build: .
+    env_file:
+      - api-variables.env
+    ports:
+      - 8000:8000
+    networks:
+      - dev_dbs
+
+networks: 
+  dev_dbs:
+    external: true
