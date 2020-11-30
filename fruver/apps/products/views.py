@@ -13,7 +13,7 @@ from ..providers.models import Providers
 from .serializers import ProductsSerializer
 
 
-class ProductsListViewSet(ReadOnlyViewSet):
+class ProductsListViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = Products.objects.all()
     serializer_class = ProductsSerializer

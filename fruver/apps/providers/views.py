@@ -1,5 +1,4 @@
 import json
-from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -13,7 +12,7 @@ from .models import Providers
 from .serializers import ProvidersSerializer
 
 
-class ProvidersListViewSet(ReadOnlyViewSet):
+class ProvidersListViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = Providers.objects.all()
     serializer_class = ProvidersSerializer
