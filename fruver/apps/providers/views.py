@@ -65,3 +65,27 @@ class ProviderCreateOneView(APIView):
             print('error:', e)
             response = make_response(status.HTTP_400_BAD_REQUEST, str(e))
             return Response(status=status.HTTP_400_BAD_REQUEST, data=response)
+
+
+class ProviderUpdateOneView(APIView):
+
+    permission_classes = (IsAuthenticated, )
+
+    def put(self, request, document_id: str):
+        try:
+            try:
+                provider = Providers.objects.get(pk=document_id)
+            except:
+                response = make_response(status.HTTP_404_NOT_FOUND, {})
+                return Response(status=status.HTTP_404_NOT_FOUND, data=response)
+            body = json.loads(request.body)
+            if body['name']:
+                provider.name = body['name']
+            provider.save()
+            serializer = ProvidersSerializer(provider)
+            response = make_response(status.HTTP_200_OK, serializer.data)
+            return Response(status=status.HTTP_200_OK, data=response)
+        except Exception as e:
+            print('error:', e)
+            response = make_response(status.HTTP_400_BAD_REQUEST, str(e))
+            return Response(status=status.HTTP_400_BAD_REQUEST, data=response)
