@@ -2,8 +2,8 @@ version: '3.3'
 
 services: 
   app:
-    container_name: fruver_svc
-    image: fruver/http-api
+    container_name: groceries_store_svc
+    image: groceries_store/http-api
     build: .
     env_file:
       - api-variables.env

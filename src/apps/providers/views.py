@@ -6,8 +6,8 @@ from rest_framework import (
     viewsets,
     status,
 )
-from fruver_utils.readonly_viewset import ReadOnlyViewSet
-from fruver_utils.make_response import make_response
+from gs_utils.readonly_viewset import ReadOnlyViewSet
+from gs_utils.make_response import make_response
 from .models import Providers
 from .serializers import ProvidersSerializer
 
