@@ -1,11 +1,11 @@
-# API REST con Django-Rest-Framework para fruver
+# API REST con Django-Rest-Framework para Tienda de Víveres
 
 
 #### Crear proyecto
 
 ```sh
-$ mkdir fruver_svc
-$ cd fruver_svc
+$ mkdir groceries_store_svc
+$ cd groceries_store_svc
 $ virtualenv . -p python3
 $ mkdir src
 $ cd src
@@ -14,7 +14,7 @@ $ cd src
 #### Aplicar requerimientos
 ```sh
 $ source ../bin/activate
-$ (fruver_svc) pip install -r requirements.txt
+$ (groceries_store_svc) pip install -r requirements.txt
 ```
 
 #### Configurar base de datos
@@ -22,7 +22,7 @@ $ (fruver_svc) pip install -r requirements.txt
 DATABASES = {
     'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg',
-            'NAME': 'fruver_db',
+            'NAME': 'groceries_store_db',
             'USER': 'admin',
             'PASSWORD': 'secret',
             'HOST': '0.0.0.0',
@@ -35,24 +35,24 @@ DATABASES = {
 En cada carpeta nueva que se crea en el project no olvidar el archivo __init__.py si no se crea
 automaticamente, para que Django reconozca el directorio como parte del proyecto
 ```sh
-$ (fruver_svc) cd src/
-$ (fruver_svc) django-admin startproject fruver
-$ (fruver_svc) cd fruver/
-$ (fruver_svc) mkdir apps/
-$ (fruver_svc) cd apps/
-$ (fruver_svc) django-admin startapp products_providers
+$ (groceries_store_svc) cd src/
+$ (groceries_store_svc) django-admin startproject groceries_store
+$ (groceries_store_svc) cd groceries_store
+$ (groceries_store_svc) mkdir apps/
+$ (groceries_store_svc) cd apps/
+$ (groceries_store_svc) django-admin startapp products_providers
 
 ```
 
 #### Aplicar migraciones
 
 ```sh
-$ (fruver_svc) cd src/
-$ (fruver_svc) python manage.py makemigrations
-$ (fruver_svc) python manage.py migrate
+$ (groceries_store_svc) cd src/
+$ (groceries_store_svc) python manage.py makemigrations
+$ (groceries_store_svc) python manage.py migrate
 ```
 
 #### Iniciar
 ```sh
-$ (fruver_svc) python manage.py runserver
+$ (groceries_store_svc) python manage.py runserver
 ```
